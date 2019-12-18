@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luck.demo.mapper.userMapper">
+    <resultMap id="BaseResultMap" type="com.luck.demo.entity.user">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="AGE" jdbcType="VARCHAR" property="age"/>
+    </resultMap>
+    <!--    &amp;amp;lt;resultMap id="BaseResultMap" type="com.luck.demo.entity.t_sys_user"&amp;amp;gt;-->
+    <!--        &amp;amp;amp;lt;!&amp;amp;amp;ndash;-->
+    <!--          WARNING - @mbg.generated-->
+    <!--        &amp;amp;amp;ndash;&amp;amp;amp;gt;-->
+    <!--        &amp;amp;lt;result column="USERNAME" jdbcType="VARCHAR" property="user"/&amp;amp;gt;-->
+    <!--        &amp;amp;lt;result column="PASSWORD" jdbcType="VARCHAR" property="password"/&amp;amp;gt;-->
+    <!--        &amp;amp;lt;result column="AGE" jdbcType="DECIMAL" property="age"/&amp;amp;gt;-->
+    <!--    &amp;amp;lt;/resultMap&amp;amp;gt;-->
+    <insert id="addTest">
+
+        <foreach close="end;" collection="lists" item="list" open="begin">
+            insert into T(T) VALUES (#{list});
+        </foreach>
+    </insert>
+    <insert id="addUser">
+    insert into T_SYS_USER(id,name,password,LOGINNAME) values (#{name},#{name},#{password},#{name})
+  </insert>
+    <insert id="userRegister">
+        insert into "USER"(username,password) values
+        <if test="username != null and password !=null">
+            (#{username},#{password})
+        </if>
+    </insert>
+    <select id="login" resultType="java.lang.Integer">
+        SELECT count(*) from "USER" where 1=1
+        <if test="username!=null">
+            and username=#{username}
+        </if>
+        <if test="password!=null">
+            and password=#{password}
+        </if>
+    </select>
+    <select id="loginByUserName" resultType="java.lang.String">
+        select PASSWORD from t_sys_user where 1=1
+        <if test="userName != null">
+            and loginname=#{userName}
+        </if>
+    </select>
+    <select id="queryUerRoles" resultType="java.lang.String">
+        -- SELECT t2.NAME from T_SYS_USER t1 INNER JOIN T_SYS_ORG t2 on t1.ORGID=t2.PID where LOGINNAME='luck'
+        SELECT t2.NAME from T_SYS_USER t1 INNER JOIN T_SYS_ORG t2 on t1.ORGID=t2.PID where 1=1
+        <if test="username != null">
+            and LOGINNAME=#{username}
+        </if>
+    </select>
+    <select id="queryLogin" resultType="com.luck.demo.entity.t_sys_user">
+        SELECT * from T_SYS_USER where 1=1
+        <if test="username!=null">
+            and loginname=#{username}
+        </if>
+    </select>
+    <select id="queryPasswordByUsername" resultType="java.lang.String">
+        <if test="username !=null">
+            select password from "USER" where 1=1 and username=#{username}
+        </if>
+    </select>
+    <select id="selectRoleByUserName" resultType="java.lang.String">
+        <if test="username !=null">
+            select role from "USER" where 1=1 and username=#{username}
+        </if>
+    </select>
+    <select id="checkUsername" resultType="com.luck.demo.entity.user">
+        select * from "USER" where username=#{username}
+    </select>
+</mapper>

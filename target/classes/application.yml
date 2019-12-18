@@ -1,0 +1,34 @@
+
+server:
+  port: 8010
+spring:
+  datasource:
+    username: pfscz
+    password: pfscz
+    url: jdbc:oracle:thin:@192.168.204.131:1521:orcl
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    type: com.alibaba.druid.pool.DruidDataSource
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    add-mappings: true
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#showSql
+logging:
+  level:
+    com.luck.demo.mapper: debug
+#
+#        日志的方式打印sql
+#        logging:
+#          level:
